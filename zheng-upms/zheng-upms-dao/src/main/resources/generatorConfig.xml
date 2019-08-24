@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration
-        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
+
     <!-- 配置文件 -->
     <properties resource="generator.properties"></properties>
 
-    <context id="MysqlContext" targetRuntime="MyBatis3">
+    <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+
         <property name="javaFileEncoding" value="UTF-8"/>
         <!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为`  -->
         <property name="beginningDelimiter" value="`"/>
@@ -17,7 +16,7 @@
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
 
         <!-- 为生成的Java模型类添加序列化接口，并生成serialVersionUID字段 -->
-        <plugin type="com.zheng.common.plugin.SerializablePlugin">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
             <property name="suppressJavaInterface" value="false"/>
         </plugin>
 
@@ -40,29 +39,39 @@
         <!-- Java模型生成equals和hashcode方法 -->
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
 
+        <!-- 生成的代码去掉注释 -->
         <commentGenerator>
-            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true" />
             <property name="suppressDate" value="true"/>
         </commentGenerator>
-        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+
+        <!-- 数据库连接 -->
         <jdbcConnection driverClass="${generator.jdbc.driver}"
-                        connectionURL="${generator.jdbc.url}" userId="${generator.jdbc.username}"
-                        password="${generator.jdbc.password}">
-        </jdbcConnection>
+                        connectionURL="${generator.jdbc.url}"
+                        userId="${generator.jdbc.username}"
+                        password="123456" />
 
-        <!-- targetProject:生成PO类的位置 -->
-        <javaModelGenerator targetPackage="com.ivy.zheng.upms.dao.model" targetProject="src/main/java"></javaModelGenerator>
-        <!-- targetProject:mapper映射文件生成的位置
-           如果maven工程只是单独的一个工程，targetProject="src/main/java"
-           若果maven工程是分模块的工程，targetProject="所属模块的名称"，例如：
-           targetProject="ecps-manager-mapper"，下同-->
-        <sqlMapGenerator targetPackage="com.ivy.zheng.upms.dao.mapper" targetProject="src/main/java"></sqlMapGenerator>
-        <!-- targetPackage：mapper接口生成的位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ivy.zheng.upms.dao.mapper" targetProject="src/main/java"></javaClientGenerator>
+        <!-- model生成 -->
+        <javaModelGenerator targetPackage="com.ivy.zheng.upms.dao.model" targetProject="/Users/i505137/IdeaProjects/zhengdemo/zheng-upms/zheng-upms-dao/src/main/java" />
 
-        <table tableName="upms_user" domainObjectName="UpmsUser">
-            <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
-        </table>
-    </context>
+        <!-- MapperXML生成 -->
+        <sqlMapGenerator targetPackage="com.ivy.zheng.upms.dao.mapper" targetProject="/Users/i505137/IdeaProjects/zhengdemo/zheng-upms/zheng-upms-dao/src/main/java" />
+
+        <!-- Mapper接口生成 -->
+        <javaClientGenerator targetPackage="com.ivy.zheng.upms.dao.mapper" targetProject="/Users/i505137/IdeaProjects/zhengdemo/zheng-upms/zheng-upms-dao/src/main/java" type="XMLMAPPER" />
+
+        <!-- 需要映射的表 -->
+                                    <table tableName="upms_log" domainObjectName="UpmsLog"></table>
+                                                <table tableName="upms_organization" domainObjectName="UpmsOrganization"></table>
+                                                <table tableName="upms_permission" domainObjectName="UpmsPermission"></table>
+                                                <table tableName="upms_role" domainObjectName="UpmsRole"></table>
+                                                <table tableName="upms_role_permission" domainObjectName="UpmsRolePermission"></table>
+                                                <table tableName="upms_system" domainObjectName="UpmsSystem"></table>
+                                                <table tableName="upms_user" domainObjectName="UpmsUser">
+                    <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
+                </table>
+                                                <table tableName="upms_user_organization" domainObjectName="UpmsUserOrganization"></table>
+                                                <table tableName="upms_user_permission" domainObjectName="UpmsUserPermission"></table>
+                                                <table tableName="upms_user_role" domainObjectName="UpmsUserRole"></table>
+                        </context>
 </generatorConfiguration>
