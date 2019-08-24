@@ -17,7 +17,7 @@ public class VelocityUtil {
         ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
-        Template t = ve.getTemplate(getFile(inputVmFilePath), "utf-8");
+        Template t = ve.getTemplate(inputVmFilePath, "utf-8");
         File outputFile = new File(outputFilePath);
         FileWriterWithEncoding writer = new FileWriterWithEncoding(outputFile, "utf-8");
         t.merge(ctx, writer);

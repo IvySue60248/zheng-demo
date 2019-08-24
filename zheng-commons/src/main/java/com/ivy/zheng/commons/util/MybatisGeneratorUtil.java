@@ -1,5 +1,6 @@
 package com.ivy.zheng.commons.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.api.ProgressCallback;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class MybatisGeneratorUtil {
 
     private static String generatorConfig_vm = "/template/generatorConfig.vm";
@@ -27,7 +29,7 @@ public class MybatisGeneratorUtil {
                                 String packageName,
                                 Map<String, String> needInsertIdTables) throws Exception {
 
-        System.out.println("========== 开始生成generatorConfig.xml文件 ==========");
+        log.info("========== 开始生成generatorConfig.xml文件 ==========");
         VelocityContext ctx = new VelocityContext();
 
         List<Map<String, Object>> tables = new ArrayList<>();
@@ -57,14 +59,14 @@ public class MybatisGeneratorUtil {
         String generatorConfigXmlPath = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "") + "/src/main/resources/generatorConfig.xml";
 
         VelocityUtil.generate(generatorConfig_vm, generatorConfigXmlPath, ctx);
-        System.out.println("========== 结束生成generatorConfig.xml文件 ==========");
+        log.info("========== 结束生成generatorConfig.xml文件 ==========");
 
-        System.out.println("========== 删除旧文件 ========");
+        log.info("========== 删除旧文件 ========");
         deleteDir(new File(targetProject + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/dao/model"));
         deleteDir(new File(targetProject + "/src/main/java/" + packageName.replaceAll("\\.", "/") + "/dao/mapper"));
 
 
-        System.out.println("========== 开始执行generatorConfig.xml文件 ==========");
+        log.info("========== 开始执行generatorConfig.xml文件 ==========");
         List<String> warnings = new ArrayList<String>();
         //ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         //InputStream is = classloader.getResourceAsStream("generatorConfig.xml");
@@ -77,9 +79,9 @@ public class MybatisGeneratorUtil {
         myBatisGenerator.generate(progressCallback);
 
         for (String warning : warnings) {
-            System.out.println(warning);
+            log.warn(warning);
         }
-        System.out.println("========== 结束执行generatorConfig.xml文件 ==========");
+        log.info("========== 结束执行generatorConfig.xml文件 ==========");
 
     }
 
