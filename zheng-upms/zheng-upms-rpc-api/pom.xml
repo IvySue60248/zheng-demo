@@ -11,5 +11,12 @@
 
     <artifactId>zheng-upms-rpc-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ivy</groupId>
+            <artifactId>zheng-upms-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
