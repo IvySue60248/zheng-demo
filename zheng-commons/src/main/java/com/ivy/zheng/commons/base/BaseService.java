@@ -5,6 +5,12 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface BaseService<Record, Example> {
+
+    /**
+     * 初始化mapper
+     */
+    void initMapper();
+
     /**
      * 根据条件查询记录数量
      * @param example
