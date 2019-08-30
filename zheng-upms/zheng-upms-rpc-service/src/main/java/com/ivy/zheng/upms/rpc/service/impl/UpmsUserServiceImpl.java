@@ -1,14 +1,16 @@
 package com.ivy.zheng.upms.rpc.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.ivy.zheng.commons.base.BaseServiceImpl;
 import com.ivy.zheng.upms.dao.mapper.UpmsUserMapper;
 import com.ivy.zheng.upms.dao.model.UpmsUser;
 import com.ivy.zheng.upms.dao.model.UpmsUserExample;
 import com.ivy.zheng.upms.rpc.api.UpmsUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
+@Service(interfaceClass = UpmsUserService.class)
 public class UpmsUserServiceImpl  extends BaseServiceImpl<UpmsUserMapper, UpmsUser, UpmsUserExample> implements UpmsUserService{
 
     @Autowired

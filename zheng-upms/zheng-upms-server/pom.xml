@@ -13,4 +13,11 @@
     <packaging>war</packaging>
 
 
+    <dependencies>
+        <dependency>
+            <artifactId>zheng-upms-rpc-api</artifactId>
+            <groupId>com.ivy</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
